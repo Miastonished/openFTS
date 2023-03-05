@@ -36,6 +36,7 @@ public class FTS extends JFrame implements ActionListener{
     static JLabel bgImg;
     static JLabel basketImg;
     static JLabel eggsImg;
+    static JLabel scoreDisplay;
     
     
     static Random rand = new Random();   
@@ -63,6 +64,10 @@ public class FTS extends JFrame implements ActionListener{
         frame.setVisible(true);
         //creates the window
         
+        scoreDisplay = new JLabel("Score: 0");
+        scoreDisplay.setFont(new Font("Arial", Font.PLAIN, 25 * scale));
+        scoreDisplay.setBounds(0 * scale, 0 * scale, 200 * scale, 50 * scale);
+        //creates text that displays the score
         
         hitbox = new JButton("");         
         hitbox.setBounds(r+(15 * scale),r2, 70 * scale,98 * scale);
@@ -91,7 +96,8 @@ public class FTS extends JFrame implements ActionListener{
         bgImg.setBounds(0 * scale, 0 * scale, 691 * scale, 350 * scale);
         //creates the background
         
-        
+        // frame.add(scoreDisplay);
+        // >UNCOMMENT THIS IF YOU WANT THE SCORE VISIBLE<
         frame.add(hitbox);
         frame.add(eggsImg);
         frame.add(silverImg);
@@ -115,7 +121,9 @@ public class FTS extends JFrame implements ActionListener{
             
             score++;
             System.out.println(score);
+            scoreDisplay.setText("Score: "+score);
             frame.setTitle("openFindTheSilvers | "+score+" Silvers Found");
+            //updates the score and the score displayss
         }
     }
     
