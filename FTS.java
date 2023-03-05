@@ -9,7 +9,7 @@ import javax.imageio.*;
 import javax.swing.*;
 import java.util.Random;
 
-// Open Find The Silvers v1.0
+// Open Find The Silvers v1.0.1
 //  Created by Miastonished
 // https://github.com/Miastonished/openFTS
 
@@ -97,7 +97,7 @@ public class FTS extends JFrame implements ActionListener{
         //creates the background
         
         // frame.add(scoreDisplay);
-        // >UNCOMMENT THIS IF YOU WANT THE SCORE VISIBLE<
+        // >UNCOMMENT THIS IF YOU WANT THE SCORE VISIBLE< //
         frame.add(hitbox);
         frame.add(eggsImg);
         frame.add(silverImg);
