@@ -1,14 +1,20 @@
 # openFTS
-Open source Find The Silvers
+Open source Find The Silvers <br />
 
 ## Requirements:
-JDK 
-Java
-https://www.oracle.com/java/
+JDK <br />
+Java <br />
+https://www.oracle.com/java/ <br />
 
 ## Features
-fine the silver
-moddable ig?
+fine the silver <br />
+moddable ig? <br />
+support for multiple silvers <br />
+score <br />
 
 ## Upcoming?
-support for multiple silvers
+thingy for creating silvers mid-game <br />
+GUI??? <br />
+
+
+
