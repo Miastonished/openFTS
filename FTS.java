@@ -9,7 +9,7 @@ import javax.imageio.*;
 import javax.swing.*;
 import java.util.*;
 
-// Open Find The Silvers v1.0.2
+// Open Find The Silvers v1.0.3
 //  Created by Miastonished
 // https://github.com/Miastonished/openFTS
 
@@ -19,9 +19,9 @@ import java.util.*;
 public class FTS extends JFrame {
 
     // ** SETTINGS ** //
-    static boolean visibleScore = false;   // if the score GUI element is visible or not                              [default: false]
+    static boolean visibleScore = true;   // if the score GUI element is visible or not                              [default: false]
     static boolean resizable = true;       // if the window can be resized or not (true/false)                        [default: true]
-    static int silverAmount = 1;           // the amount of silvers (more silvers = takes longer to load the game up) [default: 1]
+    static int silverAmount = 100;           // the amount of silvers (more silvers = takes longer to load the game up) [default: 1]
     static int scale = 2;                  // change the scale or whatever of the window (small = 1, don't set it to 0 that crashes it obviously lmfao, bigger sizes may be slower startup) [default: 2]
     // ** SETTINGS ** //
 
@@ -41,6 +41,7 @@ public class FTS extends JFrame {
     static JLabel eggsImg;
     static JLabel scoreDisplay;
 
+    static ImageIcon sillysilver;
 
     static java.util.List<JButton> silverList = new ArrayList<JButton>();
     
@@ -55,7 +56,7 @@ public class FTS extends JFrame {
     
     public static void main(String[] args) {
         
-        System.out.println("---Open Find The Silvers v1.0.2---\n---------By Miastonished---------");
+        System.out.println("---Open Find The Silvers v1.0.3---\n---------By Miastonished---------");
         // ^ splash text
         
         
@@ -69,6 +70,7 @@ public class FTS extends JFrame {
         }
         // ^ loads all the images
         
+        sillysilver = new ImageIcon(new ImageIcon(sil).getImage().getScaledInstance(100 * scale, 100 * scale, Image.SCALE_DEFAULT));
         
         frame = new JFrame("openFindTheSilvers | 0 Silvers Found");
         frame.setSize(691 * scale, 350 * scale);
@@ -82,6 +84,7 @@ public class FTS extends JFrame {
         scoreDisplay.setFont(new Font("Arial", Font.PLAIN, 25 * scale));
         scoreDisplay.setBounds(0 * scale, 0 * scale, 200 * scale, 50 * scale);
         scoreDisplay.setVisible(visibleScore);
+        frame.add(scoreDisplay);
         // ^ creates text that displays the score
         
         
@@ -89,13 +92,16 @@ public class FTS extends JFrame {
         eggsImg.setBounds(50 * scale, 150 * scale, 250 * scale, 150 * scale);
         // ^ creates the eggs
         
+        
         frame.add(eggsImg);
-        // ^ so that the eggs are above the silver lmao
+        // ^ adds the eggs to the frame first so that the eggs are above the silver lmao
+        
         
         for (int i = 0; i < silverAmount; i++) {
             createSilver(i);
         }
         // ^ creates the silvers
+        
         
         basketImg = new JLabel(new ImageIcon(new ImageIcon(bas).getImage().getScaledInstance(250 * scale, 150 * scale, Image.SCALE_DEFAULT)));         
         basketImg.setBounds(400 * scale, 150 * scale, 250 * scale, 150 * scale);
@@ -106,7 +112,7 @@ public class FTS extends JFrame {
         bgImg.setBounds(0 * scale, 0 * scale, 691 * scale, 350 * scale);
         // ^ creates the background
         
-        frame.add(scoreDisplay);
+
         frame.add(basketImg);
         frame.add(bgImg);
         frame.revalidate();
@@ -123,25 +129,25 @@ public class FTS extends JFrame {
     {
         r = rand.nextInt(592 * scale); r2 = rand.nextInt(251 * scale); // creates a random x and y for the silvers
         
-        silverList.add(i, new JButton(new ImageIcon(new ImageIcon(sil).getImage().getScaledInstance(100 * scale, 100 * scale, Image.SCALE_DEFAULT))));
-        JButton hitbox = silverList.get(i);
-        hitbox.setBounds(r,r2, 70 * scale,98 * scale);
-        hitbox.setContentAreaFilled(false);
-        hitbox.setBorderPainted(false);
-        hitbox.addActionListener(
+        silverList.add(i, new JButton(sillysilver));
+        JButton silver = silverList.get(i);
+        silver.setBounds(r,r2, 70 * scale,98 * scale);
+        silver.setContentAreaFilled(false);
+        silver.setBorderPainted(false);
+        silver.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if(MouseInfo.getPointerInfo().getLocation().x >= hitbox.getLocationOnScreen().x && MouseInfo.getPointerInfo().getLocation().x <= hitbox.getLocationOnScreen().x + hitbox.getWidth() && MouseInfo.getPointerInfo().getLocation().y >= hitbox.getLocationOnScreen().y && MouseInfo.getPointerInfo().getLocation().y <= hitbox.getLocationOnScreen().y + hitbox.getHeight())
+                    if(MouseInfo.getPointerInfo().getLocation().x >= silver.getLocationOnScreen().x && MouseInfo.getPointerInfo().getLocation().x <= silver.getLocationOnScreen().x + silver.getWidth() && MouseInfo.getPointerInfo().getLocation().y >= silver.getLocationOnScreen().y && MouseInfo.getPointerInfo().getLocation().y <= silver.getLocationOnScreen().y + silver.getHeight())
                     {
                         r = rand.nextInt(592 * scale); r2 = rand.nextInt(251 * scale); 
                         // ^ creates a random x and y for the silvers
                         
-                        hitbox.setBounds(r,r2, 70 * scale,98 * scale);
+                        silver.setBounds(r,r2, 70 * scale,98 * scale);
                         frame.revalidate();
-                        // ^ moves silver and silver's hitbox
+                        // ^ moves silver and silver's silver
                         
                         score++;
-                        System.out.println(score);
+                        System.out.println("Score changed to: "+score);
                         scoreDisplay.setText("Score: "+score);
                         frame.setTitle("openFindTheSilvers | "+score+" Silvers Found");
                         // ^ updates the score and the score displayss 
@@ -152,5 +158,7 @@ public class FTS extends JFrame {
         // ^ creates a silver
         frame.add(silverList.get(i));
         // ^ places the silvers in the frame
+        System.out.println("Created Silver "+(i+1)+"/"+silverAmount);
+        // ^ debug, feel free to ccomment out if you don't want the flood lmao
     }
 }
