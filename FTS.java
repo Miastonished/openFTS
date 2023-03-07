@@ -19,9 +19,9 @@ import java.util.*;
 public class FTS extends JFrame {
 
     // ** SETTINGS ** //
-    static boolean visibleScore = true;   // if the score GUI element is visible or not                              [default: false]
+    static boolean visibleScore = false;   // if the score GUI element is visible or not                              [default: false]
     static boolean resizable = true;       // if the window can be resized or not (true/false)                        [default: true]
-    static int silverAmount = 100;           // the amount of silvers (more silvers = takes longer to load the game up) [default: 1]
+    static int silverAmount = 1;           // the amount of silvers (more silvers = takes longer to load the game up) [default: 1]
     static int scale = 2;                  // change the scale or whatever of the window (small = 1, don't set it to 0 that crashes it obviously lmfao, bigger sizes may be slower startup) [default: 2]
     // ** SETTINGS ** //
 
