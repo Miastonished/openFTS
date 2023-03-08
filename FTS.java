@@ -9,7 +9,7 @@ import javax.imageio.*;
 import javax.swing.*;
 import java.util.*;
 
-// Open Find The Silvers v1.0.3
+// Open Find The Silvers v1.0.4
 //  Created by Miastonished
 // https://github.com/Miastonished/openFTS
 
@@ -20,10 +20,19 @@ public class FTS extends JFrame {
 
     // ** SETTINGS ** //
     static boolean visibleScore = false;   // if the score GUI element is visible or not                              [default: false]
+    static boolean visibleHitbox = false;  // if the hitboxes for silvers are visible                                 [default: false]
     static boolean resizable = true;       // if the window can be resized or not (true/false)                        [default: true]
     static int silverAmount = 1;           // the amount of silvers (more silvers = takes longer to load the game up) [default: 1]
     static int scale = 2;                  // change the scale or whatever of the window (small = 1, don't set it to 0 that crashes it obviously lmfao, bigger sizes may be slower startup) [default: 2]
     // ** SETTINGS ** //
+
+    static String splash = """   
+            ▄█    ████████ ████████ ████████      ▄██▄ 
+       ▄██████    ██          ██    ██          ▄██████▄ 
+      ████  ██    ███████     ██    ████████    ████████   
+      ██    ██    ██          ██          ██    ████████    
+      ████████ ██ ██          ██    ████████ ██ ▀██████▀""";
+
 
     static BufferedImage bg = null;
     static BufferedImage egg = null;
@@ -33,7 +42,6 @@ public class FTS extends JFrame {
     // egg: the three eggs
     // bas: basket of eggs
     // sil: silver!!!!!!
-    
     
     static JFrame frame;
     static JLabel bgImg;
@@ -56,7 +64,7 @@ public class FTS extends JFrame {
     
     public static void main(String[] args) {
         
-        System.out.println("---Open Find The Silvers v1.0.3---\n---------By Miastonished---------");
+        System.out.println("---Open Find The Silvers v1.0.4---\n---------By Miastonished---------\n"+splash);
         // ^ splash text
         
         
@@ -71,6 +79,7 @@ public class FTS extends JFrame {
         // ^ loads all the images
         
         sillysilver = new ImageIcon(new ImageIcon(sil).getImage().getScaledInstance(100 * scale, 100 * scale, Image.SCALE_DEFAULT));
+        // ^ prepares and scales the silver graphic
         
         frame = new JFrame("openFindTheSilvers | 0 Silvers Found");
         frame.setSize(691 * scale, 350 * scale);
@@ -112,11 +121,20 @@ public class FTS extends JFrame {
         bgImg.setBounds(0 * scale, 0 * scale, 691 * scale, 350 * scale);
         // ^ creates the background
         
-
+        
+        
+        scoreDisplay.setBounds(0 * scale, 0 * scale, 200 * scale, 50 * scale);
+        eggsImg.setBounds(50 * scale, 150 * scale, 250 * scale, 150 * scale);
+        // ^ bug fix attempt?
+        
+        //frame.getRootPane().setDefaultButton(silverList.get(0)); // <--- funny little cheat code 
+        
         frame.add(basketImg);
         frame.add(bgImg);
         frame.revalidate();
+        frame.repaint();
         // ^ shoves all the stuff into the frame
+        System.out.println("Loading Complete\n----------------");
     } 
     
     
@@ -127,35 +145,36 @@ public class FTS extends JFrame {
     
     public static void createSilver(int i)
     {
-        r = rand.nextInt(592 * scale); r2 = rand.nextInt(251 * scale); // creates a random x and y for the silvers
+        r = rand.nextInt(592 * scale); r2 = rand.nextInt(251 * scale);  
+        // ^ creates a random x and y for the silvers
         
         silverList.add(i, new JButton(sillysilver));
         JButton silver = silverList.get(i);
         silver.setBounds(r,r2, 70 * scale,98 * scale);
-        silver.setContentAreaFilled(false);
-        silver.setBorderPainted(false);
+        silver.setContentAreaFilled(false); silver.setBorderPainted(visibleHitbox);
+        // ^ creates a silver
+        
         silver.addActionListener(
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    if(MouseInfo.getPointerInfo().getLocation().x >= silver.getLocationOnScreen().x && MouseInfo.getPointerInfo().getLocation().x <= silver.getLocationOnScreen().x + silver.getWidth() && MouseInfo.getPointerInfo().getLocation().y >= silver.getLocationOnScreen().y && MouseInfo.getPointerInfo().getLocation().y <= silver.getLocationOnScreen().y + silver.getHeight())
-                    {
-                        r = rand.nextInt(592 * scale); r2 = rand.nextInt(251 * scale); 
-                        // ^ creates a random x and y for the silvers
+                    r = rand.nextInt(592 * scale); r2 = rand.nextInt(251 * scale); 
+                    // ^ creates a random x and y for the silvers
+                      
+                    silver.setBounds(r,r2, 70 * scale,98 * scale);
+                    frame.revalidate();
+                    // ^ moves silver
                         
-                        silver.setBounds(r,r2, 70 * scale,98 * scale);
-                        frame.revalidate();
-                        // ^ moves silver and silver's silver
-                        
-                        score++;
-                        System.out.println("Score changed to: "+score);
-                        scoreDisplay.setText("Score: "+score);
-                        frame.setTitle("openFindTheSilvers | "+score+" Silvers Found");
-                        // ^ updates the score and the score displayss 
-                    } 
+                    score++;
+                    System.out.println("Score changed to: "+score);
+                    scoreDisplay.setText("Score: "+score);
+                    frame.setTitle("openFindTheSilvers | "+score+" Silvers Found");
+                    // ^ updates the score and the score displayss 
                 }
             }
         );
-        // ^ creates a silver
+        // ^ 
+        
+        
         frame.add(silverList.get(i));
         // ^ places the silvers in the frame
         System.out.println("Created Silver "+(i+1)+"/"+silverAmount);
