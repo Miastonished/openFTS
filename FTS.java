@@ -20,7 +20,7 @@ import java.math.*;
 public class FTS extends JFrame {
 
     // ** SETTINGS ** //
-    static boolean visibleScore = true;   // if the score GUI element is visible or not                              [default: false]
+    static boolean visibleScore = false;   // if the score GUI element is visible or not                              [default: false]
     static boolean visibleHitbox = false;  // if the hitboxes for silvers are visible                                 [default: false]
     static boolean resizable = true;       // if the window can be resized or not (true/false)                        [default: true]
     static int silverAmount = 1;           // the amount of silvers (more silvers = takes longer to load the game up) [default: 1]
@@ -162,7 +162,7 @@ public class FTS extends JFrame {
                 for (int i = 0; i < silverAmount; i++) {
                     silverList.get(i).setBounds((int)(silverY.get(i) * frame.getWidth()), (int)(silverX.get(i) * frame.getHeight()), frame.getWidth() / 8, frame.getHeight() / 3);
                 }
-        
+                
                 frame.revalidate();
                 frame.repaint();
             }
